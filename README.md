@@ -2,15 +2,16 @@
 
 A new Flutter project.
 
-## Getting Started
+# Used libraries : 
+. sqflite
+. provider
+. flutter_linkify
+. url_launcher
 
-This project is a starting point for a Flutter application.
+![Screenshot_20220817-230151](https://user-images.githubusercontent.com/80406227/185252407-09e4f052-5311-4df2-9dbc-2d07106504ec.jpg)
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+![Screenshot_20220817-230211](https://user-images.githubusercontent.com/80406227/185252435-71d65e06-51db-4da7-b0b9-784b09261c7d.jpg)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+![Screenshot_20220817-230216](https://user-images.githubusercontent.com/80406227/185252457-7bb83dc0-9293-4625-af4e-53fe3afda776.jpg)
