@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/constant/const_color.dart';
 import 'package:note_app/module/note_module.dart';
 import 'package:note_app/screens/add_note.dart';
 import 'package:note_app/screens/show_note.dart';
@@ -13,20 +14,7 @@ class noteHome extends StatefulWidget {
 }
 
 class _noteHomeState extends State<noteHome> {
-  switchColor(int value) {
-    switch (value) {
-      case 1:
-        return Color(0xFFF28B82);
-      case 2:
-        return Color(0xFFCAF18C);
-      case 3:
-        return Color(0xFFFFF174);
-      case 4:
-        return Color(0xFFA6F9EA);
-      case 5:
-        return Color(0xFFD7ADF7);
-    }
-  }
+  AppColor appColor = AppColor();
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +71,7 @@ class _noteHomeState extends State<noteHome> {
                           },
                           child: Card(
                             elevation: 5,
-                            color: switchColor(note.color),
+                            color: appColor.NoteColors[note.color],
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 13),

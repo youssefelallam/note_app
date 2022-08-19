@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/constant/const_color.dart';
 import 'package:note_app/module/note_module.dart';
 import 'package:note_app/util/note_provider.dart';
 import 'package:provider/provider.dart';
@@ -12,52 +13,33 @@ class editeNote extends StatefulWidget {
 }
 
 class _editeNoteState extends State<editeNote> {
-  late int _value;
+  late String _value;
   TextEditingController c_title = TextEditingController();
   TextEditingController c_note = TextEditingController();
-  Color BGcolor = Color(0xFFF28B82);
-  switchColor() {
-    switch (_value) {
-      case 1:
-        BGcolor = Color(0xFFF28B82);
-        break;
-      case 2:
-        BGcolor = Color(0xFFCAF18C);
-        break;
-      case 3:
-        BGcolor = Color(0xFFFFF174);
-        break;
-      case 4:
-        BGcolor = Color(0xFFA6F9EA);
-        break;
-      case 5:
-        BGcolor = Color(0xFFD7ADF7);
-        break;
-    }
-  }
+  AppColor appColor = AppColor();
+
 
   @override
   void initState() {
     setState(() {
-      _value = widget.note.color;
       c_title.text = widget.note.title;
       c_note.text = widget.note.note;
-      switchColor();
+      _value = widget.note.color;
     });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: BGcolor,
-      appBar: AppBar(
-        title: Text('Edite Note'),
-        centerTitle: true,
-      ),
-      body: Consumer<NoteData>(
-        builder: (context, controller, child) {
-          return Padding(
+    return Consumer<NoteData>(
+      builder: (context, controller, child) {
+        return Scaffold(
+          backgroundColor: appColor.NoteColors[_value],
+          appBar: AppBar(
+            title: Text('Edite Note'),
+            centerTitle: true,
+          ),
+          body: Padding(
             padding: const EdgeInsets.all(13.0),
             child: SingleChildScrollView(
               child: Column(
@@ -73,15 +55,15 @@ class _editeNoteState extends State<editeNote> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      customRadio(1, Color(0xFFF28B82)),
+                      customRadio('red', Color(0xFFF28B82)),
                       SizedBox(width: 8),
-                      customRadio(2, Color(0xFFCAF18C)),
+                      customRadio('green', Color(0xFFCAF18C)),
                       SizedBox(width: 8),
-                      customRadio(3, Color(0xFFFFF174)),
+                      customRadio('yellow', Color(0xFFFFF174)),
                       SizedBox(width: 8),
-                      customRadio(4, Color(0xFFA6F9EA)),
+                      customRadio('blue', Color(0xFFA6F9EA)),
                       SizedBox(width: 8),
-                      customRadio(5, Color(0xFFD7ADF7)),
+                      customRadio('purple', Color(0xFFD7ADF7)),
                     ],
                   ),
                   SizedBox(height: 10),
@@ -113,12 +95,11 @@ class _editeNoteState extends State<editeNote> {
                             'color': _value,
                           },
                           widget.note.id);
-                      print(response);
                       if (response > 0) {
                         c_title.clear();
                         c_note.clear();
-                        Navigator.of(context)
-                            .popUntil((route) => route.isFirst);
+                        Navigator.pop(context);
+                        Navigator.pop(context);
                       }
                     },
                     child: Text('Update'),
@@ -126,13 +107,14 @@ class _editeNoteState extends State<editeNote> {
                 ],
               ),
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 
-  Widget customRadio(int value, Color color) {
+  Widget customRadio(String value, Color color) {
+    var controller = Provider.of<NoteData>(context,listen: false);
     return InkWell(
       child: CircleAvatar(
         radius: 11.0,
@@ -143,10 +125,8 @@ class _editeNoteState extends State<editeNote> {
         ),
       ),
       onTap: () {
-        setState(() {
-          _value = value;
-          switchColor();
-        });
+        _value = value;
+        controller.changeNoteColor(value);
       },
     );
   }

@@ -2,7 +2,7 @@ class Note {
   int? _id;
   late String _title;
   late String _note;
-  late int _color;
+  late String _color;
 
   Note(dynamic obj) {
     _id = obj['id'];
@@ -23,5 +23,5 @@ class Note {
   int? get id => _id;
   String get title => _title;
   String get note => _note;
-  int get color => _color;
+  String get color => _color;
 }

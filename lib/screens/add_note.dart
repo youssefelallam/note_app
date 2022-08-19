@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:note_app/module/note_module.dart';
+import 'package:note_app/constant/const_color.dart';
 import 'package:note_app/util/note_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -11,41 +11,22 @@ class addNote extends StatefulWidget {
 }
 
 class _addNoteState extends State<addNote> {
+  String _value = 'red';
   TextEditingController c_title = TextEditingController();
   TextEditingController c_note = TextEditingController();
-  int _value = 1;
-  Color BGcolor = Color(0xFFF28B82);
-  switchColor() {
-    switch (_value) {
-      case 1:
-        BGcolor = Color(0xFFF28B82);
-        break;
-      case 2:
-        BGcolor = Color(0xFFCAF18C);
-        break;
-      case 3:
-        BGcolor = Color(0xFFFFF174);
-        break;
-      case 4:
-        BGcolor = Color(0xFFA6F9EA);
-        break;
-      case 5:
-        BGcolor = Color(0xFFD7ADF7);
-        break;
-    }
-  }
+  AppColor appColor = AppColor();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: BGcolor,
-      appBar: AppBar(
-        title: Text('Add Note'),
-        centerTitle: true,
-      ),
-      body: Consumer<NoteData>(
-        builder: (context, controller, child) {
-          return Padding(
+    return Consumer<NoteData>(
+      builder: (context, controller, child) {
+        return Scaffold(
+          backgroundColor: appColor.NoteColors[_value],
+          appBar: AppBar(
+            title: Text('Add Note'),
+            centerTitle: true,
+          ),
+          body: Padding(
             padding: const EdgeInsets.all(13.0),
             child: SingleChildScrollView(
               child: Column(
@@ -61,15 +42,15 @@ class _addNoteState extends State<addNote> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      customRadio(1, Color(0xFFF28B82)),
+                      customRadio('red', Color(0xFFF28B82)),
                       SizedBox(width: 8),
-                      customRadio(2, Color(0xFFCAF18C)),
+                      customRadio('green', Color(0xFFCAF18C)),
                       SizedBox(width: 8),
-                      customRadio(3, Color(0xFFFFF174)),
+                      customRadio('yellow', Color(0xFFFFF174)),
                       SizedBox(width: 8),
-                      customRadio(4, Color(0xFFA6F9EA)),
+                      customRadio('blue', Color(0xFFA6F9EA)),
                       SizedBox(width: 8),
-                      customRadio(5, Color(0xFFD7ADF7)),
+                      customRadio('purple', Color(0xFFD7ADF7)),
                     ],
                   ),
                   SizedBox(height: 10),
@@ -115,13 +96,14 @@ class _addNoteState extends State<addNote> {
                 ],
               ),
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 
-  Widget customRadio(int value, Color color) {
+  Widget customRadio(String value, Color color) {
+    var controller = Provider.of<NoteData>(context, listen: false);
     return InkWell(
       child: CircleAvatar(
         radius: 11.0,
@@ -132,10 +114,8 @@ class _addNoteState extends State<addNote> {
         ),
       ),
       onTap: () {
-        setState(() {
-          _value = value;
-          switchColor();
-        });
+        controller.changeNoteColor(value);
+        _value = value;
       },
     );
   }

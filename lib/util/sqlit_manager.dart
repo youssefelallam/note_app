@@ -32,7 +32,7 @@ class SqlDb {
     "id" INTEGER  NOT NULL PRIMARY KEY  AUTOINCREMENT, 
     "title" TEXT,
     "note" TEXT,
-    "color" INTEGER
+    "color" TEXT
   )
  ''');
 

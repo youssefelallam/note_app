@@ -5,6 +5,13 @@ import 'package:sqflite/sqflite.dart';
 class NoteData extends ChangeNotifier {
   SqlDb sqlDb = SqlDb();
 
+
+  String NoteColor = 'red';
+  changeNoteColor(String color){
+    NoteColor = color;
+    notifyListeners();
+  }
+
   readData(String table) async {
     Database? mydb = await sqlDb.db;
     List<Map> response = await mydb!.query(table);

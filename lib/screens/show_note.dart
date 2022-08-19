@@ -1,33 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
+import 'package:note_app/constant/const_color.dart';
 import 'package:note_app/module/note_module.dart';
 import 'package:note_app/screens/edite_note.dart';
-import 'package:note_app/util/note_provider.dart';
-import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class showNote extends StatelessWidget {
   final Note note;
-  const showNote({Key? key, required this.note}) : super(key: key);
-  switchColor(int value) {
-    switch (value) {
-      case 1:
-        return Color(0xFFF28B82);
-      case 2:
-        return Color(0xFFCAF18C);
-      case 3:
-        return Color(0xFFFFF174);
-      case 4:
-        return Color(0xFFA6F9EA);
-      case 5:
-        return Color(0xFFD7ADF7);
-    }
-  }
+  showNote({Key? key, required this.note}) : super(key: key);
+  AppColor appColor = AppColor();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: switchColor(note.color),
+      backgroundColor: appColor.NoteColors[note.color],
       appBar: AppBar(
         title: Text('Show Note'),
         centerTitle: true,
